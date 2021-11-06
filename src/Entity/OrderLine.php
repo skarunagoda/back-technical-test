@@ -16,29 +16,29 @@ class OrderLine
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    protected $quantity;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $total;
+    protected $total;
 
     /**
      * @ORM\ManyToOne(targetEntity="Order", inversedBy="lines")
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      */
-    private $order;
+    protected $order;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
-    private $product;
+    protected $product;
 
     public function getId(): ?int
     {
@@ -89,5 +89,14 @@ class OrderLine
     public function setProduct($product): void
     {
         $this->product = $product;
+    }
+
+    public function getWeight(): int
+    {
+      $product = $this->getProduct();
+      $productQuantity = $this->getQuantity();
+      $productWeight = $product->getWeight();
+
+      return $productWeight * $productQuantity;
     }
 }
