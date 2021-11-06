@@ -18,18 +18,15 @@ class AppFixtures extends Fixture
     public function __construct()
     {
         $this->faker = \Faker\Factory::create();
-
-        $connection = $manager->getConnection();
-        $connection->exec("ALTER TABLE `order` AUTO_INCREMENT = 1;");
     }
 
     public function load(ObjectManager $manager)
     {
-        //$this->testFixtureOrderCheckOK();
-        //$this->testFixtureOrderCheckHeavyAndForeign();
-        //$this->testFixtureOrderCheckEmptyMail();
-        //$this->testFixtureOrderCheckExceed60kg();
-        //$this->testFixtureOrderCheckInvalidFrenchAddress();
+        $this->testFixtureOrderCheckOK($manager);
+        $this->testFixtureOrderCheckHeavyAndForeign($manager);
+        $this->testFixtureOrderCheckEmptyMail($manager);
+        $this->testFixtureOrderCheckExceed60kg($manager);
+        $this->testFixtureOrderCheckInvalidFrenchAddress($manager);
 
         for ($i = 1; $i < 30; $i++) {
             $order = new Order();
@@ -66,7 +63,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function testFixtureOrderCheckOK(){
+    public function testFixtureOrderCheckOK(ObjectManager $manager){
         $order = new Order();
         $order->setId(1);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -75,7 +72,7 @@ class AppFixtures extends Fixture
         $order->setShippingZipcode('75002');
         $order->setShippingCountry('France');
 
-        $nbLines = mt_rand(1);
+        $nbLines = 1;
         for ($j = 1; $j < $nbLines; $j++) {
             $price = 100;
 
@@ -98,7 +95,7 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckHeavyAndForeign(){
+    public function testFixtureOrderCheckHeavyAndForeign(ObjectManager $manager){
         $order = new Order();
         $order->setId(2);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -107,7 +104,7 @@ class AppFixtures extends Fixture
         $order->setShippingZipcode('75002');
         $order->setShippingCountry('USA');
 
-        $nbLines = mt_rand(1);
+        $nbLines = 1;
         for ($j = 1; $j < $nbLines; $j++) {
             $price = 100;
 
@@ -130,7 +127,7 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckEmptyMail(){
+    public function testFixtureOrderCheckEmptyMail(ObjectManager $manager){
         $order = new Order();
         $order->setId(3);
         $order->setContactEmail('');
@@ -139,7 +136,7 @@ class AppFixtures extends Fixture
         $order->setShippingZipcode('75002');
         $order->setShippingCountry('France');
 
-        $nbLines = mt_rand(1);
+        $nbLines = 1;
         for ($j = 1; $j < $nbLines; $j++) {
             $price = 100;
 
@@ -162,7 +159,7 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckExceed60kg(){
+    public function testFixtureOrderCheckExceed60kg(ObjectManager $manager){
         $order = new Order();
         $order->setId(4);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -171,7 +168,7 @@ class AppFixtures extends Fixture
         $order->setShippingZipcode('75002');
         $order->setShippingCountry('France');
 
-        $nbLines = mt_rand(1);
+        $nbLines = 1;
         for ($j = 1; $j < $nbLines; $j++) {
             $price = 100;
 
@@ -194,7 +191,7 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckInvalidFrenchAddress(){
+    public function testFixtureOrderCheckInvalidFrenchAddress(ObjectManager $manager){
         $order = new Order();
         $order->setId(5);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -203,7 +200,7 @@ class AppFixtures extends Fixture
         $order->setShippingZipcode('95600');
         $order->setShippingCountry('France');
 
-        $nbLines = mt_rand(1);
+        $nbLines = 1;
         for ($j = 1; $j < $nbLines; $j++) {
             $price = 100;
 

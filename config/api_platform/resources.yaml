@@ -1,0 +1,21 @@
+App\Entity\Order:
+    itemOperations:
+        get: ~
+        check_order:
+            method: GET
+            path: /orders/{id}/check
+            controller: App\Controller\CheckOrderController
+            openapi_context:
+              summary: Checks an order and adds appropriated tags
+        check_order_and_log:
+            method: GET
+            path: /orders/{id}/check-and-log
+            controller: App\Controller\CheckOrderAndLogController
+            openapi_context:
+              summary: Checks an order, adds appropriated tags and logs anomalies
+        list_order_issues:
+            method: GET
+            path: /orders/{id}/issues
+            controller: App\Controller\ListOrderIssuesController
+            openapi_context:
+              summary: List the issues of an order
