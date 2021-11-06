@@ -18,10 +18,19 @@ class AppFixtures extends Fixture
     public function __construct()
     {
         $this->faker = \Faker\Factory::create();
+
+        $connection = $manager->getConnection();
+        $connection->exec("ALTER TABLE `order` AUTO_INCREMENT = 1;");
     }
 
     public function load(ObjectManager $manager)
     {
+        //$this->testFixtureOrderCheckOK();
+        //$this->testFixtureOrderCheckHeavyAndForeign();
+        //$this->testFixtureOrderCheckEmptyMail();
+        //$this->testFixtureOrderCheckExceed60kg();
+        //$this->testFixtureOrderCheckInvalidFrenchAddress();
+
         for ($i = 1; $i < 30; $i++) {
             $order = new Order();
             $order->setContactEmail($this->faker->randomElement(['', $this->faker->email]));
@@ -55,5 +64,165 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function testFixtureOrderCheckOK(){
+        $order = new Order();
+        $order->setId(1);
+        $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
+        $order->setName('#'. mt_rand(10, 100000));
+        $order->setShippingAddress('8 rue de la paix');
+        $order->setShippingZipcode('75002');
+        $order->setShippingCountry('France');
+
+        $nbLines = mt_rand(1);
+        for ($j = 1; $j < $nbLines; $j++) {
+            $price = 100;
+
+            $orderLine = new OrderLine();
+            $orderLine->setQuantity(10);
+            $orderLine->setTotal($qty * $price);
+
+            $product = new Product();
+            $product->setName($this->faker->safeColorName . ' nuts');
+            $product->setWeight(1000);
+            $manager->persist($product);
+
+            $orderLine->setProduct($product);
+            $orderLine->setOrder($order);
+
+            $manager->persist($product);
+            $manager->persist($orderLine);
+        }
+
+        $manager->persist($order);
+    }
+
+    public function testFixtureOrderCheckHeavyAndForeign(){
+        $order = new Order();
+        $order->setId(2);
+        $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
+        $order->setName('#'. mt_rand(10, 100000));
+        $order->setShippingAddress('8 rue de la paix');
+        $order->setShippingZipcode('75002');
+        $order->setShippingCountry('USA');
+
+        $nbLines = mt_rand(1);
+        for ($j = 1; $j < $nbLines; $j++) {
+            $price = 100;
+
+            $orderLine = new OrderLine();
+            $orderLine->setQuantity(10);
+            $orderLine->setTotal($qty * $price);
+
+            $product = new Product();
+            $product->setName($this->faker->safeColorName . ' nuts');
+            $product->setWeight(5000);
+            $manager->persist($product);
+
+            $orderLine->setProduct($product);
+            $orderLine->setOrder($order);
+
+            $manager->persist($product);
+            $manager->persist($orderLine);
+        }
+
+        $manager->persist($order);
+    }
+
+    public function testFixtureOrderCheckEmptyMail(){
+        $order = new Order();
+        $order->setId(3);
+        $order->setContactEmail('');
+        $order->setName('#'. mt_rand(10, 100000));
+        $order->setShippingAddress('8 rue de la paix');
+        $order->setShippingZipcode('75002');
+        $order->setShippingCountry('France');
+
+        $nbLines = mt_rand(1);
+        for ($j = 1; $j < $nbLines; $j++) {
+            $price = 100;
+
+            $orderLine = new OrderLine();
+            $orderLine->setQuantity(10);
+            $orderLine->setTotal($qty * $price);
+
+            $product = new Product();
+            $product->setName($this->faker->safeColorName . ' nuts');
+            $product->setWeight(1000);
+            $manager->persist($product);
+
+            $orderLine->setProduct($product);
+            $orderLine->setOrder($order);
+
+            $manager->persist($product);
+            $manager->persist($orderLine);
+        }
+
+        $manager->persist($order);
+    }
+
+    public function testFixtureOrderCheckExceed60kg(){
+        $order = new Order();
+        $order->setId(4);
+        $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
+        $order->setName('#'. mt_rand(10, 100000));
+        $order->setShippingAddress('8 rue de la paix');
+        $order->setShippingZipcode('75002');
+        $order->setShippingCountry('France');
+
+        $nbLines = mt_rand(1);
+        for ($j = 1; $j < $nbLines; $j++) {
+            $price = 100;
+
+            $orderLine = new OrderLine();
+            $orderLine->setQuantity(10);
+            $orderLine->setTotal($qty * $price);
+
+            $product = new Product();
+            $product->setName($this->faker->safeColorName . ' nuts');
+            $product->setWeight(7000);
+            $manager->persist($product);
+
+            $orderLine->setProduct($product);
+            $orderLine->setOrder($order);
+
+            $manager->persist($product);
+            $manager->persist($orderLine);
+        }
+
+        $manager->persist($order);
+    }
+
+    public function testFixtureOrderCheckInvalidFrenchAddress(){
+        $order = new Order();
+        $order->setId(5);
+        $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
+        $order->setName('#'. mt_rand(10, 100000));
+        $order->setShippingAddress('8 rue de la paix');
+        $order->setShippingZipcode('95600');
+        $order->setShippingCountry('France');
+
+        $nbLines = mt_rand(1);
+        for ($j = 1; $j < $nbLines; $j++) {
+            $price = 100;
+
+            $orderLine = new OrderLine();
+            $orderLine->setQuantity(10);
+            $orderLine->setTotal($qty * $price);
+
+            $product = new Product();
+            $product->setName($this->faker->safeColorName . ' nuts');
+            $product->setWeight(1000);
+            $manager->persist($product);
+
+            $orderLine->setProduct($product);
+            $orderLine->setOrder($order);
+
+            $manager->persist($product);
+            $manager->persist($orderLine);
+        }
+
+        $manager->persist($order);
     }
 }
