@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
-    const SHIPPING_COUNTRY_FR = "France";
+    public const SHIPPING_COUNTRY_FR = "France";
 
     /**
      * @ORM\Id
@@ -183,8 +183,8 @@ class Order
      */
     public function addTag(OrderTag $tag): self
     {
-        if(!$this->getTags()->contains($tag)) {
-          $this->getTags()->add($tag);
+        if (!$this->getTags()->contains($tag)) {
+            $this->getTags()->add($tag);
         }
 
         return $this;
@@ -198,8 +198,8 @@ class Order
      */
     public function addIssue(OrderIssue $issue): self
     {
-        if(!$this->getIssues()->contains($issue)) {
-          $this->getIssues()->add($issue);
+        if (!$this->getIssues()->contains($issue)) {
+            $this->getIssues()->add($issue);
         }
 
         return $this;
@@ -207,75 +207,75 @@ class Order
 
     public function getWeight(): int
     {
-      $weight = 0;
-      $lines = $this->getLines();
+        $weight = 0;
+        $lines = $this->getLines();
 
-      foreach ($lines as $key => $line) {
-        $weight += $line->getWeight();
-      }
+        foreach ($lines as $key => $line) {
+            $weight += $line->getWeight();
+        }
 
-      return $weight;
+        return $weight;
     }
 
     public function addHeavyTag(): self
     {
-      $this->addTagByValue(OrderTag::TAG_HEAVY);
+        $this->addTagByValue(OrderTag::TAG_HEAVY);
 
-      return $this;
+        return $this;
     }
 
     public function addForeignWarehouseTag(): self
     {
-      $this->addTagByValue(OrderTag::TAG_FOREIGN_WAREHOUSE);
+        $this->addTagByValue(OrderTag::TAG_FOREIGN_WAREHOUSE);
 
-      return $this;
+        return $this;
     }
 
     public function addHasIssuesTag(): self
     {
-      $this->addTagByValue(OrderTag::TAG_HAS_ISSUES);
+        $this->addTagByValue(OrderTag::TAG_HAS_ISSUES);
 
-      return $this;
+        return $this;
     }
 
     protected function addTagByValue(string $tagValue): self
     {
-      $tag = new OrderTag();
-      $tag->setOrder($this);
-      $tag->setTag($tagValue);
-      $this->addTag($tag);
+        $tag = new OrderTag();
+        $tag->setOrder($this);
+        $tag->setTag($tagValue);
+        $this->addTag($tag);
 
-      return $this;
+        return $this;
     }
 
     public function addEmptyEmailIssue(): self
     {
-      $this->addIssueByValue(OrderIssue::ISSUE_EMPTY_EMAIL);
+        $this->addIssueByValue(OrderIssue::ISSUE_EMPTY_EMAIL);
 
-      return $this;
+        return $this;
     }
 
     public function addExceeds60kgIssue(): self
     {
-      $this->addIssueByValue(OrderIssue::ISSUE_EXCEEDS_60KG);
+        $this->addIssueByValue(OrderIssue::ISSUE_EXCEEDS_60KG);
 
-      return $this;
+        return $this;
     }
 
     public function addInvalidFrenchAddressIssue(): self
     {
-      $this->addIssueByValue(OrderIssue::ISSUE_INVALID_FRENCH_ADDRESS);
+        $this->addIssueByValue(OrderIssue::ISSUE_INVALID_FRENCH_ADDRESS);
 
-      return $this;
+        return $this;
     }
 
     protected function addIssueByValue(string $issueValue): self
     {
-      $issue = new OrderIssue();
-      $issue->setOrder($this);
-      $issue->setIssue($issueValue);
-      $this->addIssue($issue);
+        $issue = new OrderIssue();
+        $issue->setOrder($this);
+        $issue->setIssue($issueValue);
+        $this->addIssue($issue);
 
-      return $this;
+        return $this;
     }
 }

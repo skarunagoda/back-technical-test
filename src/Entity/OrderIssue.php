@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrderIssue
 {
-    const ISSUE_EMPTY_EMAIL = "La commande a un email de contact vide.";
-    const ISSUE_EXCEEDS_60KG = "La commande fait plus de 60kg.";
-    const ISSUE_INVALID_FRENCH_ADDRESS = "La commande est livrée en France mais n'a pas une adresse française valide.";
+    public const ISSUE_EMPTY_EMAIL = "La commande a un email de contact vide.";
+    public const ISSUE_EXCEEDS_60KG = "La commande fait plus de 60kg.";
+    public const ISSUE_INVALID_FRENCH_ADDRESS = "La commande est livrée en France mais n'a pas une adresse française valide.";
 
     /**
      * @ORM\Id

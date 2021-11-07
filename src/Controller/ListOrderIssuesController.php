@@ -23,7 +23,7 @@ class ListOrderIssuesController extends AbstractController
         $issues = $this->orderIssueHandler->handle($data, true);
 
         foreach ($issues as $key => $issue) {
-          $issuesArray[] = [
+            $issuesArray[] = [
             'id' => $issue->getId(),
             'issue' => $issue->getIssue(),
           ];

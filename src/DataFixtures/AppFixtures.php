@@ -63,7 +63,8 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function testFixtureOrderCheckOK(ObjectManager $manager){
+    public function testFixtureOrderCheckOK(ObjectManager $manager)
+    {
         $order = new Order();
         $order->setId(1);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -95,7 +96,8 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckHeavyAndForeign(ObjectManager $manager){
+    public function testFixtureOrderCheckHeavyAndForeign(ObjectManager $manager)
+    {
         $order = new Order();
         $order->setId(2);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -127,7 +129,8 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckEmptyMail(ObjectManager $manager){
+    public function testFixtureOrderCheckEmptyMail(ObjectManager $manager)
+    {
         $order = new Order();
         $order->setId(3);
         $order->setContactEmail('');
@@ -159,7 +162,8 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckExceed60kg(ObjectManager $manager){
+    public function testFixtureOrderCheckExceed60kg(ObjectManager $manager)
+    {
         $order = new Order();
         $order->setId(4);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
@@ -191,7 +195,8 @@ class AppFixtures extends Fixture
         $manager->persist($order);
     }
 
-    public function testFixtureOrderCheckInvalidFrenchAddress(ObjectManager $manager){
+    public function testFixtureOrderCheckInvalidFrenchAddress(ObjectManager $manager)
+    {
         $order = new Order();
         $order->setId(5);
         $order->setContactEmail($this->faker->randomElement([$this->faker->email]));
