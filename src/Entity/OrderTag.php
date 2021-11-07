@@ -12,9 +12,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class OrderTag
 {
-    const TAG_HEAVY = "heavy";
-    const TAG_FOREIGN_WAREHOUSE = "ForeignWarehouse";
-    const TAG_HAS_ISSUES = "hasIssues";
+    public const TAG_HEAVY = "heavy";
+    public const TAG_FOREIGN_WAREHOUSE = "ForeignWarehouse";
+    public const TAG_HAS_ISSUES = "hasIssues";
 
     /**
      * @ORM\Id

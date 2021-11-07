@@ -7,9 +7,8 @@ use Doctrine\Common\Collections\Collection;
 
 class OrderIssueHandler
 {
-  public function handle(Order $order): array
-  {
-    return $order->getIssues()->toArray();
-  }
-
+    public function handle(Order $order): array
+    {
+        return $order->getIssues()->toArray();
+    }
 }

@@ -93,10 +93,10 @@ class OrderLine
 
     public function getWeight(): int
     {
-      $product = $this->getProduct();
-      $productQuantity = $this->getQuantity();
-      $productWeight = $product->getWeight();
+        $product = $this->getProduct();
+        $productQuantity = $this->getQuantity();
+        $productWeight = $product->getWeight();
 
-      return $productWeight * $productQuantity;
+        return $productWeight * $productQuantity;
     }
 }
