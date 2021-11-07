@@ -24,7 +24,7 @@ docker-compose exec php /bin/sh
 # add vendors
 composer install
 
-# update the database schema 
+# update the database schema
 bin/console doctrine:schema:update -f
 
 # to load fixtures data
