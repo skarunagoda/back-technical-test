@@ -1,3 +1,5 @@
+Bonjour Lafourche !
+
 # La Fourche Backend Developer test
 
 This is a boilerplate for La Fourche Backend Developer test.
